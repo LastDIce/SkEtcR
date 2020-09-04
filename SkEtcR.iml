@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="EclipseModuleManager">
-    <libelement value="file://C:/Users/mj/Desktop/ETC/12.2버킷 - 복사본 - 복사본/craftbukkit.jar" />
-    <libelement value="file://C:/Users/mj/Desktop/ETC/랜개12/plugins/MagicSpells-3.5-Release.jar" />
-    <libelement value="file://C:/Users/mj/Desktop/ETC/12.2버킷 - 복사본 - 복사본 (2)/plugins/Skript 2.2dev.jar" />
-    <src_description expected_position="1">
-      <src_folder value="file://$MODULE_DIR$/src" expected_position="1" />
-    </src_description>
-  </component>
   <component name="FacetManager">
     <facet type="minecraft" name="Minecraft">
       <configuration>
@@ -29,33 +21,6 @@
     </content>
     <orderEntry type="jdk" jdkName="JavaSE-1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library name="craftbukkit.jar">
-        <CLASSES>
-          <root url="file://C:/Users/mj/Desktop/ETC/12.2버킷 - 복사본 - 복사본/craftbukkit.jar" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="MagicSpells-3.5-Release.jar">
-        <CLASSES>
-          <root url="file://C:/Users/mj/Desktop/ETC/랜개12/plugins/MagicSpells-3.5-Release.jar" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Skript 2.2dev.jar">
-        <CLASSES>
-          <root url="file://C:/Users/mj/Desktop/ETC/12.2버킷 - 복사본 - 복사본 (2)/plugins/Skript 2.2dev.jar" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.github.TheComputerGeek2:MagicSpells:3.5-Release" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.github.SkriptLang:Skript:dev35b" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.destroystokyo.paper:paper-api:1.12.1-R0.1-SNAPSHOT" level="project" />
