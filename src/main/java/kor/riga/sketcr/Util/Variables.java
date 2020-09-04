@@ -10,6 +10,7 @@ public class Variables {
     public boolean stop;
     public boolean check;
     public HashMap<String, BossBar> bossbarList;
+
     private Variables() {
 
         bossbarList = new HashMap<>();

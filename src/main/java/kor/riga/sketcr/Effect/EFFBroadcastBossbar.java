@@ -16,18 +16,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
 
-public class EFFBossbar extends Effect {
+public class EFFBroadcastBossbar extends Effect {
     private Expression<String> message;
     private Expression<String> style;
     private Expression<String> color;
-    private Expression<Player> player;
     private Expression<String> bbId;
     private Expression<Number> time;
     private int id;
 
     @Override
     public String toString(Event event, boolean b) {
-        return "send bossbar %string% with style %string% and color %string% of id %string% to %player% for %number% seconds";
+        return "broadcast bossbar %string% with style %string% and color %string% of id %string% for %number% seconds";
     }
 
     @SuppressWarnings("unchecked")
@@ -37,8 +36,7 @@ public class EFFBossbar extends Effect {
         this.style = (Expression<String>) expressions[1];
         this.color = (Expression<String>) expressions[2];
         this.bbId = (Expression<String>) expressions[3];
-        this.player = (Expression<Player>) expressions[4];
-        this.time = (Expression<Number>) expressions[5];
+        this.time = (Expression<Number>) expressions[4];
         return true;
     }
 
@@ -47,10 +45,11 @@ public class EFFBossbar extends Effect {
         String style = this.style.getSingle(event);
         String color = this.color.getSingle(event);
         String message = this.message.getSingle(event);
-        final Player player = this.player.getSingle(event);
         Number time = this.time.getSingle(event);
         BossBar bossbar = Bukkit.createBossBar(message, BarColor.valueOf(color.toUpperCase()), BarStyle.valueOf(style.toUpperCase().replaceAll(" ", "_")), BarFlag.PLAY_BOSS_MUSIC);
-        bossbar.addPlayer(player);
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            bossbar.addPlayer(player);
+        }
         bossbar.setProgress(1);
         String bbId = this.bbId.getSingle(event);
         int tick = (int) time.floatValue() * 20;
@@ -78,7 +77,6 @@ public class EFFBossbar extends Effect {
                     bossbar.removeAll();
                     Variables.getInstance().bossbarList.remove(bbId, bossbar);
                 } catch (Exception e) {
-                    // TODO: handle exception
                 }
                 Bukkit.getServer().getScheduler().cancelTask(i);
             }

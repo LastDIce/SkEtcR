@@ -155,6 +155,8 @@ public class Main extends JavaPlugin implements Listener {
                         "m[agic][-]caster");
                 Skript.registerExpression(ExpMagicCooldown.class, Float.class, ExpressionType.PROPERTY,
                         "m[agic][-]cooldown");
+                Skript.registerExpression(ExpMagicVariable.class, Double.class, ExpressionType.PROPERTY,
+                        "m[agic][ ]var[iable] %string% for %player%");
                 Skript.registerEvent("damage", EvtMagicDamage.class, SpellApplyDamageEvent.class, "m[agic][ ]damage");
                 Skript.registerEvent("cast", EvtMagicCast.class, SpellCastEvent.class, "m[agic][ ]cast");
             }
