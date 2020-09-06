@@ -37,4 +37,3 @@ public class EFFEnchant extends Effect {
     }
 
 }
-

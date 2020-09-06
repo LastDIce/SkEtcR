@@ -1,15 +1,15 @@
 package kor.riga.sketcr.Event;
 
-
 import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import org.bukkit.event.Event;
 
-public class EvtLocaleChange extends SkriptEvent {
+public class EvtItemDamage extends SkriptEvent {
 
     @Override
     public boolean init(Literal<?>[] args, int matchedPattern, ParseResult parseResult) {
+
         return true;
     }
 

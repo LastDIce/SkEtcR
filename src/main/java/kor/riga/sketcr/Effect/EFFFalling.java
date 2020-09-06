@@ -37,4 +37,3 @@ public class EFFFalling extends Effect {
         loc.getWorld().spawnFallingBlock(loc, type, this.b.getSingle(event));
     }
 }
-

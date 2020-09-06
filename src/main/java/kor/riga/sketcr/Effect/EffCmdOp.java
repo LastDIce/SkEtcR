@@ -1,6 +1,5 @@
 package kor.riga.sketcr.Effect;
 
-
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -29,6 +28,7 @@ public class EffCmdOp extends Effect {
     @Override
     protected void execute(Event event) {
         Player player = this.player.getSingle(event);
+
         String cmd = this.cmd.getSingle(event);
         assert cmd != null;
         if (cmd.startsWith("/"))

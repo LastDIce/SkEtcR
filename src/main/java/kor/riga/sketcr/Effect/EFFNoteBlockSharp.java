@@ -21,7 +21,6 @@ public class EFFNoteBlockSharp extends Effect {
 
     @Override
     public String toString(Event event, boolean b) {
-
         return "play noteblock sharp instrument %string% and tone %string% at %location% to %player%";
     }
 
@@ -46,4 +45,3 @@ public class EFFNoteBlockSharp extends Effect {
     }
 
 }
-

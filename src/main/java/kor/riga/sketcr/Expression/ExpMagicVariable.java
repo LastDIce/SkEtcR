@@ -12,7 +12,6 @@ import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
 public class ExpMagicVariable extends SimpleExpression<Double> {
-
     private Expression<String> name;
     private Expression<Player> player;
 

@@ -45,4 +45,3 @@ public class EFFNoteBlockFlat extends Effect {
     }
 
 }
-

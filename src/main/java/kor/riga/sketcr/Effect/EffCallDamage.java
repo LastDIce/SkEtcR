@@ -40,7 +40,6 @@ public class EffCallDamage extends Effect {
         Entity damagee = this.damagee.getSingle(event);
         DamageCause cause = DamageCause.valueOf(this.cause.getSingle(event).toUpperCase());
         double damage = this.damage.getSingle(event);
-        System.out.println(1);
         Bukkit.getServer().getPluginManager().callEvent(new EntityDamageByEntityEvent(damager, damagee, cause, damage));
     }
 

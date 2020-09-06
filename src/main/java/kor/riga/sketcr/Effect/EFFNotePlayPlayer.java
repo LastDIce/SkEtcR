@@ -18,7 +18,6 @@ public class EFFNotePlayPlayer extends Effect {
 
     @Override
     public String toString(Event event, boolean b) {
-
         return "play noteblock %string% of %float% with volume %float% for %player%";
     }
 
@@ -55,4 +54,3 @@ public class EFFNotePlayPlayer extends Effect {
     }
 
 }
-

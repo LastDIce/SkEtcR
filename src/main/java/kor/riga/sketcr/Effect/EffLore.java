@@ -38,7 +38,7 @@ public class EffLore extends Effect {
         String ac = ChatColor.translateAlternateColorCodes('&', acc.getSingle(event));
         int t = Integer.parseInt(amount.getSingle(event) + "");
         ItemMeta im = i.getItemMeta();
-        List<String> l = new ArrayList<String>();
+        List<String> l = new ArrayList<>();
         if (im.getLore() != null) {
             l.addAll(im.getLore());
         }

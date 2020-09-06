@@ -9,6 +9,8 @@ import kor.riga.sketcr.Condition.CondEven;
 import kor.riga.sketcr.Effect.*;
 import kor.riga.sketcr.Event.*;
 import kor.riga.sketcr.Expression.*;
+import kor.riga.sketcr.Util.Event.PlayerRidingKeyPressEvent;
+import kor.riga.sketcr.Util.Packet;
 import kor.riga.sketcr.etc.VersionCheck;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -37,26 +39,38 @@ public class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         instance = this;
-        //System.out.println(getDescription().getVersion());
+        // apiList = new ArrayList<String>();
+        this.saveDefaultConfig();
+        if (!getConfig().isSet("Packet")) {
+            new File("plugins//SkEtcR//config.yml").delete();
+            this.saveDefaultConfig();
+        }
+        if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
+            if (getConfig().getBoolean("Packet"))
+                Packet.start();
+            else {
+                System.out.println("[SkEtcR] - 패킷을 사용하지 않습니다");
+                System.out.println("[SkEtcR] - 패킷을 사용하지 않습니다");
+            }
+        } else {
+            System.out.println("ProtocolLib이 존재하지 않아 패킷을 사용하지 않습니다");
+            System.out.println("ProtocolLib이 존재하지 않아 패킷을 사용하지 않습니다");
+        }
+        // System.out.println(getDescription().getVersion());
         register();
         Bukkit.getServer().getPluginManager().registerEvents(this, this);
         Bukkit.getServer().getPluginManager().registerEvents(new VersionMessage(), this);
         File file = new File("plugins\\SkEtcR\\Example.txt");
         file.delete();
         saveResource("Example.txt", false);
-        this.getConfig().addDefault("개발자.닉네임", "_____R");
-        this.getConfig().addDefault("개발자.디스코드", "_R#8668");
-        this.getConfig().addDefault("도움을 주신 분", "디코 : 짖지리#6654, 블로그 : https://blog.naver.com/pseongsil");
-        this.getConfig().options().copyDefaults(true);
-        this.saveConfig();
         new VersionCheck().start();
 
     }
 
     @Override
     public void onDisable() {
+        // unloadAPI();
     }
-
 
     private void register() {
         if (Bukkit.getPluginManager().getPlugin("Skript") != null) {
@@ -95,10 +109,13 @@ public class Main extends JavaPlugin implements Listener {
                     "clean array %objects%");
             Skript.registerExpression(ExpSort.class, Number.class, ExpressionType.PROPERTY,
                     "sort in %numbers%");
+            Skript.registerExpression(ExplineChange.class, String.class, ExpressionType.PROPERTY,
+                    "n");
             Skript.registerEffect(EFFEnchant.class, "clear enchant of %itemstack%");
             Skript.registerEffect(EffCmdOp.class, "%player% op c[om]m[an]d %string%");
             Skript.registerEffect(EffSort.class, "sort index %objects% value %numbers% in %string%");
-            Skript.registerEffect(EffCallDamage.class, "call[ ]event damage %entity% by %entity% cause %string% damage %double%");
+            Skript.registerEffect(EffCallDamage.class,
+                    "call[ ]event damage %entity% by %entity% cause %string% damage %double%");
             Skript.registerEffect(EffCallChat.class, "call[ ]event chat %player%");
             Skript.registerEffect(EffCallJoin.class, "call[ ]event join %player%");
             Skript.registerEffect(EffCallQuit.class, "call[ ]event quit %player%");
@@ -133,13 +150,23 @@ public class Main extends JavaPlugin implements Listener {
             Skript.registerEvent("NotePlay", EvtNotePlay.class, NotePlayEvent.class, "note play");
             Skript.registerEvent("merge", EvtItemMergeEvent.class, ItemMergeEvent.class, "[item] merge");
             Skript.registerEvent("slime", EvtSlimeSplitEvent.class, SlimeSplitEvent.class, "slime split");
+            Skript.registerEvent("itemDamage", EvtItemDamage.class, PlayerRidingKeyPressEvent.class,
+                    "player i[tem][ ]damage");
             Skript.registerEvent("inv pickup", EvtInventoryPickup.class, InventoryPickupItemEvent.class,
                     "[inventory] pickup item");
             Skript.registerCondition(CommandAynchronous.class, "command (1¦is|2¦is(n't| not)) exist");
             Skript.registerCondition(CondEven.class, "%number% (1¦is|2¦is(n't| not)) even");
             // Skript.registerCondition(CondKeepInventory.class, "inventory (1¦is|2¦is(n't|
             // not)) keep");
-            //MagicSpells
+            // MagicSpells
+            if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
+                Skript.registerEvent("ride", EvtRidingKeyPress.class, PlayerRidingKeyPressEvent.class,
+                        "riding key press");
+                Skript.registerExpression(ExpRidingKey.class, String.class, ExpressionType.PROPERTY,
+                        "event-press");
+                Skript.registerEffect(EffEnableDamageParticle.class, "enable damage particle");
+                Skript.registerEffect(EffDisableDamageParticle.class, "disable damage particle");
+            }
             if (Bukkit.getPluginManager().getPlugin("MagicSpells") != null) {
                 Skript.registerEffect(EffMagicTeach.class, "[magic[ ]]teach %string% to %player%");
                 Skript.registerEffect(EffMagicCast.class, "[magic[ ]]cast %string% to %player%");
@@ -154,9 +181,7 @@ public class Main extends JavaPlugin implements Listener {
                 Skript.registerExpression(ExpMagicCaster.class, Player.class, ExpressionType.PROPERTY,
                         "m[agic][-]caster");
                 Skript.registerExpression(ExpMagicCooldown.class, Float.class, ExpressionType.PROPERTY,
-                        "m[agic][-]cooldown");
-                Skript.registerExpression(ExpMagicVariable.class, Double.class, ExpressionType.PROPERTY,
-                        "m[agic][ ]var[iable] %string% for %player%");
+                        "%player%['s] m[agic[ ]]cooldown of %string%");
                 Skript.registerEvent("damage", EvtMagicDamage.class, SpellApplyDamageEvent.class, "m[agic][ ]damage");
                 Skript.registerEvent("cast", EvtMagicCast.class, SpellCastEvent.class, "m[agic][ ]cast");
             }
@@ -165,4 +190,32 @@ public class Main extends JavaPlugin implements Listener {
 
         Bukkit.getPluginManager().disablePlugin(this);
     }
+
+    /*
+     * private File tempFile; private ArrayList<String> apiList;
+     *
+     * private void unloadAPI() { for (String s : apiList) { File[] lf =
+     * tempFile.getParentFile().listFiles(); if (lf != null) { for (File f : lf) {
+     * if (f.getName().startsWith(s)) { f.delete(); } } } } }
+     *
+     * private void loadAPI(String str, String str2, String url) { try { tempFile =
+     * File.createTempFile(str, str2); InputStream rin = getResource(url);
+     * FileOutputStream fo = new FileOutputStream(tempFile);
+     *
+     * int b; while ((b = rin.read()) != -1) { fo.write(b); } rin.close();
+     * fo.close();
+     *
+     * JarUtils.extractFromJar(tempFile.getName(), tempFile.getAbsolutePath());
+     * addClassPath(JarUtils.getJarUrl(tempFile)); apiList.add(str);
+     * System.out.println("완료"); } catch (IOException e) { e.printStackTrace(); } }
+     *
+     * private void addClassPath(final URL url) throws IOException { final
+     * URLClassLoader sysloader = (URLClassLoader)
+     * ClassLoader.getSystemClassLoader(); final Class<URLClassLoader> sysclass =
+     * URLClassLoader.class; try { final Method method =
+     * sysclass.getDeclaredMethod("addURL", new Class[] { URL.class });
+     * method.setAccessible(true); method.invoke(sysloader, new Object[] { url }); }
+     * catch (final Throwable t) { t.printStackTrace(); throw new
+     * IOException("Error adding " + url + " to system classloader"); } }
+     */
 }

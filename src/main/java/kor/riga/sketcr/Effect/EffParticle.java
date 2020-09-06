@@ -53,4 +53,3 @@ public class EffParticle extends Effect {
     }
 
 }
-

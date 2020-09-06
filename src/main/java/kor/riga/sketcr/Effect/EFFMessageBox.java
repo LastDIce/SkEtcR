@@ -32,4 +32,3 @@ public class EFFMessageBox extends Effect {
         JOptionPane.showMessageDialog(null, msg);
     }
 }
-

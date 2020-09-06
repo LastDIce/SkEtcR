@@ -9,7 +9,6 @@ public class EvtToggleGlide extends SkriptEvent {
 
     @Override
     public boolean init(Literal<?>[] args, int matchedPattern, ParseResult parseResult) {
-
         return true;
     }
 

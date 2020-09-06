@@ -32,4 +32,3 @@ public class EFFRunCmdCommand extends Effect {
         }
     }
 }
-
